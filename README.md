@@ -97,3 +97,5 @@ Clicking a room with a `climate` entity opens that entity's more-info dialog.
 ## License
 
 MIT — see [LICENSE](LICENSE).
+The visual card editor provides entity pickers and add/remove controls for rooms,
+radiators and battery sensors.

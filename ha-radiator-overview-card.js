@@ -1,4 +1,5 @@
-const VERSION = "0.1.4";
+import "./ha-card-list-editor.js";
+const VERSION = "0.2.0";
 
 class HARadiatorOverviewCard extends HTMLElement {
   constructor() {
@@ -15,6 +16,7 @@ class HARadiatorOverviewCard extends HTMLElement {
   static getStubConfig() {
     return { title: "Radiatoroverblik", rooms: [] };
   }
+  static getConfigElement(){const e=document.createElement("ha-card-list-editor");e.definition={roots:[{key:"title",label:"Titel"},{key:"animation",label:"Animation",type:"boolean"}],collections:[{key:"rooms",label:"Radiatorer og rum",itemLabel:"rum",defaults:{name:"Nyt rum",icon:"mdi:radiator"},fields:[{key:"name",label:"Navn"},{key:"icon",label:"Ikon"},{key:"temperature",label:"Temperatur",type:"entity"},{key:"humidity",label:"Luftfugtighed",type:"entity"},{key:"comfort",label:"Komfortstatus",type:"entity"},{key:"climate",label:"Termostat",type:"entity"},{key:"valve",label:"Ventilåbning",type:"entity"},{key:"battery",label:"Batteri",type:"entity"},{key:"battery_state",label:"Batteristatus",type:"entity"}]}]};return e;}
 
   setConfig(config) {
     if (!config || !Array.isArray(config.rooms)) throw new Error("Radiatoroverblik kræver en rooms-liste");
