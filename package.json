@@ -1,6 +1,6 @@
 {
   "name": "ha-radiator-overview-card",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Home Assistant Lovelace card: animated room-by-room radiator and temperature overview.",
   "type": "module",
   "repository": {

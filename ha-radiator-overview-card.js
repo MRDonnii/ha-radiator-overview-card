@@ -1,5 +1,5 @@
 import "./ha-card-list-editor.js";
-const VERSION = "0.2.0";
+const VERSION = "0.2.1";
 
 class HARadiatorOverviewCard extends HTMLElement {
   constructor() {
@@ -225,7 +225,7 @@ class HARadiatorOverviewCard extends HTMLElement {
         .hub strong { display:block; font-size:12px; }
         .hub.source { left:3%; } .hub.house { left:50%; transform:translate(-50%,-50%); } .hub.return { right:3%; }
         .hub.return ha-icon { color:var(--cool); }
-        .rooms { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+        .rooms { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:12px; }
         .room { position:relative; min-width:0; min-height:206px; padding:15px; overflow:hidden; border:1px solid var(--edge); border-radius:18px; background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(0,0,0,.04)); color:inherit; font:inherit; text-align:left; cursor:pointer; box-shadow:0 8px 24px rgba(0,0,0,.08); transition:transform .2s ease,border-color .25s ease,box-shadow .25s ease; }
         .room > *:not(.room-chart):not(.room-glow) { position:relative; z-index:2; }
         .room:hover { transform:translateY(-2px); border-color:color-mix(in srgb,var(--room-color) 48%,transparent); box-shadow:0 12px 30px rgba(0,0,0,.15),0 0 0 1px color-mix(in srgb,var(--room-color) 12%,transparent); }
@@ -262,7 +262,7 @@ class HARadiatorOverviewCard extends HTMLElement {
         @keyframes pulse { 0%,100%{transform:scale(.9);opacity:.15} 50%{transform:scale(1.15);opacity:.28} }
         @keyframes radiatorFlow { from{transform:translateX(-13px)} to{transform:translateX(43px)} }
         @keyframes radiatorFill { 0%,100%{background-position:0 100%;opacity:.62} 50%{background-position:0 0;opacity:1} }
-        @media (max-width:760px) { .shell{padding:15px} header{display:block}.summary{justify-content:flex-start;margin-top:13px}.summary-item{flex:1}.rooms{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.system{height:76px}.hub{padding:7px}.hub span{display:none}.room{min-height:196px;padding:13px} }
+        @media (max-width:760px) { .shell{padding:15px} header{display:block}.summary{justify-content:flex-start;margin-top:13px}.summary-item{flex:1}.rooms{grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr));gap:9px}.system{height:76px}.hub{padding:7px}.hub span{display:none}.room{min-height:196px;padding:13px} }
         @media (max-width:410px) { .rooms{grid-template-columns:1fr}.room{min-height:184px}.system .hub.house{display:none}.system-line{left:14%;right:14%} }
         @media (prefers-reduced-motion:reduce) { *{animation:none!important;scroll-behavior:auto!important} }
       </style>
