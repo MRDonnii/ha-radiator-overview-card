@@ -2,6 +2,9 @@
 
 ![Preview](docs/preview.png)
 
+> HACS installs both JavaScript files automatically. For a manual installation,
+> copy `ha-radiator-overview-card.js` and `ha-card-list-editor.js` into the same folder.
+
 A Home Assistant Lovelace card that shows every heated room in the house as one
 animated overview: a heat-source-to-house flow diagram at the top, and a card per
 room below with current temperature, a background sparkline of recent history,
