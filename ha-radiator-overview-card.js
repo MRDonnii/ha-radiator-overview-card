@@ -1,5 +1,5 @@
 import "./ha-card-list-editor.js";
-const VERSION = "0.2.4";
+const VERSION = "0.2.5";
 
 class HARadiatorOverviewCard extends HTMLElement {
   constructor() {
@@ -207,7 +207,7 @@ class HARadiatorOverviewCard extends HTMLElement {
       <style>
         :host { display:block; --hot:#ff8a3d; --hot2:#ffca62; --cool:var(--state-cool-icon, var(--info-color, #58aaf8)); --ok:var(--dashboard-success, var(--success-color, #5bc99a)); --edge:var(--dashboard-border-neutral, var(--divider-color, rgba(255,255,255,.11))); }
         * { box-sizing:border-box; }
-        ha-card { position:relative; overflow:hidden; border-radius:24px; background:linear-gradient(145deg,color-mix(in srgb,var(--surface, var(--ha-card-background)) 94%, #14263d 6%),var(--ha-card-background)); box-shadow:var(--ha-card-box-shadow); color:var(--primary-text-color); }
+        ha-card { position:relative; overflow:hidden; border-radius:24px; background:var(--dashboard-card-bg, var(--surface, var(--ha-card-background, var(--card-background-color, #111820)))); box-shadow:var(--ha-card-box-shadow); color:var(--primary-text-color); }
         .shell { position:relative; padding:22px; isolation:isolate; }
         .ambient { position:absolute; inset:-30%; z-index:-1; opacity:.28; background:radial-gradient(circle at 18% 2%,rgba(255,138,61,.35),transparent 27%),radial-gradient(circle at 90% 22%,rgba(88,170,248,.2),transparent 24%); pointer-events:none; }
         header { display:flex; align-items:flex-start; justify-content:space-between; gap:18px; margin-bottom:18px; }
