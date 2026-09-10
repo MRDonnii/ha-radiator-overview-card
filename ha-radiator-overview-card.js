@@ -1,5 +1,5 @@
 import "./ha-card-list-editor.js";
-const VERSION = "0.2.5";
+const VERSION = "0.3.0";
 
 class HARadiatorOverviewCard extends HTMLElement {
   constructor() {
@@ -205,7 +205,7 @@ class HARadiatorOverviewCard extends HTMLElement {
 
     this.shadowRoot.innerHTML = `
       <style>
-        :host { display:block; --hot:#ff8a3d; --hot2:#ffca62; --cool:var(--state-cool-icon, var(--info-color, #58aaf8)); --ok:var(--dashboard-success, var(--success-color, #5bc99a)); --edge:var(--dashboard-border-neutral, var(--divider-color, rgba(255,255,255,.11))); }
+        :host { display:block; --hot:#ff8a3d; --hot2:#ffca62; --cool:var(--state-cool-icon, var(--info-color, #58aaf8)); --ok:var(--dashboard-success, var(--success-color, #5bc99a)); --accent:var(--dashboard-accent, var(--info-color, #38bdf8)); --edge:var(--dashboard-border-neutral, var(--divider-color, rgba(255,255,255,.11))); }
         * { box-sizing:border-box; }
         ha-card { position:relative; overflow:hidden; border-radius:24px; background:var(--dashboard-card-bg, var(--surface, var(--ha-card-background, var(--card-background-color, #111820)))); box-shadow:var(--ha-card-box-shadow); color:var(--primary-text-color); }
         .shell { position:relative; padding:22px; isolation:isolate; }
@@ -215,20 +215,21 @@ class HARadiatorOverviewCard extends HTMLElement {
         .eyebrow b { width:7px; height:7px; border-radius:50%; background:${heating ? "var(--hot)" : "var(--ok)"}; box-shadow:0 0 14px ${heating ? "var(--hot)" : "var(--ok)"}; }
         h2 { margin:5px 0 0; font-size:25px; line-height:1.08; letter-spacing:-.035em; }
         .summary { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
-        .summary-item { min-width:84px; padding:9px 12px; border:1px solid var(--edge); border-radius:14px; background:rgba(0,0,0,.08); }
+        .summary-item { min-width:84px; padding:9px 12px; border:1px solid color-mix(in srgb,var(--accent) 16%,transparent); border-left:3px solid var(--accent); border-radius:14px; background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 7%,transparent),transparent 55%),rgba(0,0,0,.08); box-shadow:0 4px 12px rgba(0,0,0,.1); }
         .summary-item span { display:block; color:var(--secondary-text-color); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; }
         .summary-item strong { display:block; margin-top:3px; font-size:17px; }
-        .system { position:relative; height:86px; margin:4px 0 20px; border:1px solid var(--edge); border-radius:19px; background:linear-gradient(90deg,rgba(255,138,61,.08),rgba(255,255,255,.025),rgba(88,170,248,.07)); overflow:hidden; }
+        .system { position:relative; height:86px; margin:4px 0 20px; border:1px solid color-mix(in srgb,var(--accent) 18%,var(--edge)); border-radius:19px; background:linear-gradient(90deg,rgba(255,138,61,.08),rgba(255,255,255,.025),rgba(88,170,248,.07)); overflow:hidden; }
         .system-line { position:absolute; left:8%; right:8%; top:50%; height:4px; transform:translateY(-50%); border-radius:99px; background:linear-gradient(90deg,var(--hot),var(--hot2) 46%,rgba(255,255,255,.16) 55%,var(--cool)); box-shadow:0 0 18px rgba(255,138,61,.25); }
         .system-line::after { content:""; position:absolute; inset:-1px; width:45px; border-radius:99px; background:linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent); animation:flow 2.8s linear infinite; }
-        .hub { position:absolute; top:50%; transform:translateY(-50%); display:flex; align-items:center; gap:9px; padding:9px 12px; border:1px solid var(--edge); border-radius:13px; background:var(--ha-card-background); box-shadow:0 8px 24px rgba(0,0,0,.18); }
+        .hub { position:absolute; top:50%; transform:translateY(-50%); display:flex; align-items:center; gap:9px; padding:9px 12px; border:1px solid color-mix(in srgb,var(--hot) 22%,var(--edge)); border-radius:13px; background:var(--ha-card-background); box-shadow:0 8px 24px rgba(0,0,0,.18); }
+        .hub.return { border-color:color-mix(in srgb,var(--cool) 22%,var(--edge)); }
         .hub ha-icon { width:22px; color:var(--hot); }
         .hub span { display:block; font-size:9px; color:var(--secondary-text-color); text-transform:uppercase; letter-spacing:.09em; }
         .hub strong { display:block; font-size:12px; }
         .hub.source { left:3%; } .hub.house { left:50%; transform:translate(-50%,-50%); } .hub.return { right:3%; }
         .hub.return ha-icon { color:var(--cool); }
         .rooms { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:12px; }
-        .room { position:relative; min-width:0; min-height:206px; padding:15px; overflow:hidden; border:1px solid var(--edge); border-radius:18px; background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(0,0,0,.04)); color:inherit; font:inherit; text-align:left; cursor:pointer; box-shadow:0 8px 24px rgba(0,0,0,.08); transition:transform .2s ease,border-color .25s ease,box-shadow .25s ease; }
+        .room { position:relative; min-width:0; min-height:206px; padding:15px; overflow:hidden; border:1px solid color-mix(in srgb,var(--room-color) 22%,var(--edge)); border-left:4px solid var(--room-color); border-radius:18px; background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(0,0,0,.04)); color:inherit; font:inherit; text-align:left; cursor:pointer; box-shadow:0 8px 24px rgba(0,0,0,.08); transition:transform .2s ease,border-color .25s ease,box-shadow .25s ease; }
         .room > *:not(.room-chart):not(.room-glow) { position:relative; z-index:2; }
         .room:hover { transform:translateY(-2px); border-color:color-mix(in srgb,var(--room-color) 48%,transparent); box-shadow:0 12px 30px rgba(0,0,0,.15),0 0 0 1px color-mix(in srgb,var(--room-color) 12%,transparent); }
         .room:disabled { cursor:default; opacity:1; } .room:disabled:hover { transform:none; }
