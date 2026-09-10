@@ -1,5 +1,5 @@
 import "./ha-card-list-editor.js";
-const VERSION = "0.2.3";
+const VERSION = "0.2.4";
 
 class HARadiatorOverviewCard extends HTMLElement {
   constructor() {
@@ -205,7 +205,7 @@ class HARadiatorOverviewCard extends HTMLElement {
 
     this.shadowRoot.innerHTML = `
       <style>
-        :host { display:block; --hot:#ff8a3d; --hot2:#ffca62; --cool:#58aaf8; --ok:#5bc99a; --edge:rgba(255,255,255,.11); }
+        :host { display:block; --hot:#ff8a3d; --hot2:#ffca62; --cool:var(--state-cool-icon, var(--info-color, #58aaf8)); --ok:var(--dashboard-success, var(--success-color, #5bc99a)); --edge:var(--dashboard-border-neutral, var(--divider-color, rgba(255,255,255,.11))); }
         * { box-sizing:border-box; }
         ha-card { position:relative; overflow:hidden; border-radius:24px; background:linear-gradient(145deg,color-mix(in srgb,var(--surface, var(--ha-card-background)) 94%, #14263d 6%),var(--ha-card-background)); box-shadow:var(--ha-card-box-shadow); color:var(--primary-text-color); }
         .shell { position:relative; padding:22px; isolation:isolate; }
