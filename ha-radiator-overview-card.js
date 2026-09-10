@@ -1,5 +1,5 @@
 import "./ha-card-list-editor.js";
-const VERSION = "0.2.1";
+const VERSION = "0.2.3";
 
 class HARadiatorOverviewCard extends HTMLElement {
   constructor() {
@@ -197,7 +197,9 @@ class HARadiatorOverviewCard extends HTMLElement {
     const radiatorStates = states.filter((state) => state.climate);
     const heating = radiatorStates.filter((state) => state.heating).length;
     const open = radiatorStates.filter((state) => state.windowOpen).length;
-    const values = states.map((state) => state.current).filter((value) => value !== undefined);
+    const values = rooms
+      .map((room, i) => (room.outdoor ? undefined : states[i].current))
+      .filter((value) => value !== undefined);
     const average = values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : undefined;
     const animationClass = this._config.animation === false ? "no-animation" : "";
 
@@ -262,7 +264,7 @@ class HARadiatorOverviewCard extends HTMLElement {
         @keyframes pulse { 0%,100%{transform:scale(.9);opacity:.15} 50%{transform:scale(1.15);opacity:.28} }
         @keyframes radiatorFlow { from{transform:translateX(-13px)} to{transform:translateX(43px)} }
         @keyframes radiatorFill { 0%,100%{background-position:0 100%;opacity:.62} 50%{background-position:0 0;opacity:1} }
-        @media (max-width:760px) { .shell{padding:15px} header{display:block}.summary{justify-content:flex-start;margin-top:13px}.summary-item{flex:1}.rooms{grid-template-columns:repeat(auto-fit,minmax(min(100%,145px),1fr));gap:9px}.system{height:76px}.hub{padding:7px}.hub span{display:none}.room{min-height:196px;padding:13px} }
+        @media (max-width:760px) { .shell{padding:15px} header{display:block}.summary{justify-content:flex-start;margin-top:13px}.summary-item{flex:1}.rooms{grid-template-columns:repeat(2,1fr);gap:9px}.system{height:76px}.hub{padding:7px}.hub span{display:none}.room{min-height:196px;padding:13px} }
         @media (max-width:410px) { .rooms{grid-template-columns:1fr}.room{min-height:184px}.system .hub.house{display:none}.system-line{left:14%;right:14%} }
         @media (prefers-reduced-motion:reduce) { *{animation:none!important;scroll-behavior:auto!important} }
       </style>
